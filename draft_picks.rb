@@ -116,42 +116,42 @@ case what_do
 
 when "top"
 	0.upto(19) do |i|
-		p "#{i+1}. #{players[i].name}, #{players[i].position.upcase}   #{players[i].value.round(3)}"
+		puts "#{i+1}. #{players[i].name}, #{players[i].position.upcase}   #{players[i].value.round(3)}"
 	end
 
 when "20"
 	20.upto(39) do |i|
-		p "#{i+1}. #{players[i].name}, #{players[i].position.upcase}   #{players[i].value.round(3)}"
+		puts "#{i+1}. #{players[i].name}, #{players[i].position.upcase}   #{players[i].value.round(3)}"
 	end
 
 when "40"
 	40.upto(59) do |i|
-		p "#{i+1}. #{players[i].name}, #{players[i].position.upcase}   #{players[i].value.round(3)}"
+		puts "#{i+1}. #{players[i].name}, #{players[i].position.upcase}   #{players[i].value.round(3)}"
 	end
 
 when "60"
 	60.upto(79) do |i|
-		p "#{i+1}. #{players[i].name}, #{players[i].position.upcase}   #{players[i].value.round(3)}"
+		puts "#{i+1}. #{players[i].name}, #{players[i].position.upcase}   #{players[i].value.round(3)}"
 	end
 
 when "qb"
-	qb.each_with_index {|player, i| p "#{i}. #{player.name}, #{player.position}   #{player.value.round(3)}"}
+	qb.each_with_index {|player, i| puts "#{i}. #{player.name}, #{player.position}   #{player.value.round(3)}"}
 
 when "rb"
-	rb.each_with_index {|player, i| p "#{i}. #{player.name}, #{player.position}   #{player.value.round(3)}"}
+	rb.each_with_index {|player, i| puts "#{i}. #{player.name}, #{player.position}   #{player.value.round(3)}"}
 
 when "wr"
-	wr.each_with_index {|player, i| p "#{i}. #{player.name}, #{player.position}   #{player.value.round(3)}"}
+	wr.each_with_index {|player, i| puts "#{i}. #{player.name}, #{player.position}   #{player.value.round(3)}"}
 
 when "te"
-	te.each_with_index {|player, i| p "#{i}. #{player.name}, #{player.position}   #{player.value.round(3)}"}
+	te.each_with_index {|player, i| puts "#{i}. #{player.name}, #{player.position}   #{player.value.round(3)}"}
 
 when "d"
-	d.each_with_index {|player, i| p "#{i}. #{player.name}, #{player.position}   #{player.value.round(3)}"}
+	d.each_with_index {|player, i| puts "#{i}. #{player.name}, #{player.position}   #{player.value.round(3)}"}
 when "k"
-	k.each_with_index {|player, i| p "#{i}. #{player.name}, #{player.position}   #{player.value.round(3)}"}
+	k.each_with_index {|player, i| puts "#{i}. #{player.name}, #{player.position}   #{player.value.round(3)}"}
 else
-	"Try again"
+	puts "Try again"
 end
 what_do = gets.chomp
 
