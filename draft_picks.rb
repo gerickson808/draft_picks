@@ -12,7 +12,7 @@ class Player
 	end
 end
 
-$url_base = "http://games.espn.go.com/ffl/tools/projections?slotCategoryId="
+$url_base = "http://games.espn.go.com/ffl/tools/projections?&seasonTotals=true&seasonId=2015&slotCategoryId="
 def parse_names
 	names=[]
 
@@ -85,73 +85,30 @@ def get_values(players)
 	return players
 end
 
-def find_low_players_avg(players)
-	total = 0
-	20.upto(39) do |i|
-		total += players[i].score
-	end
-	avg = total/20
-	return avg
+positions = %w(qb rb wr te d k)
+pos = {}
+
+positions.each do |position|
+	pos[position] = get_data(position)
 end
-
-def find_low_players_median
-	players[29].score + players[30].score / 2
-end
-
-qb = get_data("qb")
-rb = get_data("rb")
-wr = get_data("wr")
-te = get_data("te")
-d = get_data("d")
-k = get_data("k")
-
-players = qb + rb + wr + te + d + k
-players.sort!{|a,b| b.value <=>a.value}
+players = []
+pos.each {|key, value| players << value}
+players.flatten!.sort!{|a,b| b.value <=>a.value}
 
 puts "Ready"
 
 what_do = gets.chomp
 until what_do == "quit"
-case what_do
 
-when "top"
-	0.upto(19) do |i|
-		puts "#{i+1}. #{players[i].name}, #{players[i].position.upcase}   #{players[i].value.round(3)}"
+if what_do.to_i > 0
+	num = what_do.to_i - 1
+	num.upto(num+19) do |i|
+		puts "#{(i+1).to_s.ljust(2," ")} #{players[i].name.ljust(20," ")} #{players[i].position.upcase.ljust(2," ")}#{players[i].value.round(2).to_s.rjust(8," ")}"
 	end
-
-when "20"
-	20.upto(39) do |i|
-		puts "#{i+1}. #{players[i].name}, #{players[i].position.upcase}   #{players[i].value.round(3)}"
-	end
-
-when "40"
-	40.upto(59) do |i|
-		puts "#{i+1}. #{players[i].name}, #{players[i].position.upcase}   #{players[i].value.round(3)}"
-	end
-
-when "60"
-	60.upto(79) do |i|
-		puts "#{i+1}. #{players[i].name}, #{players[i].position.upcase}   #{players[i].value.round(3)}"
-	end
-
-when "qb"
-	qb.each_with_index {|player, i| puts "#{i}. #{player.name}, #{player.position}   #{player.value.round(3)}"}
-
-when "rb"
-	rb.each_with_index {|player, i| puts "#{i}. #{player.name}, #{player.position}   #{player.value.round(3)}"}
-
-when "wr"
-	wr.each_with_index {|player, i| puts "#{i}. #{player.name}, #{player.position}   #{player.value.round(3)}"}
-
-when "te"
-	te.each_with_index {|player, i| puts "#{i}. #{player.name}, #{player.position}   #{player.value.round(3)}"}
-
-when "d"
-	d.each_with_index {|player, i| puts "#{i}. #{player.name}, #{player.position}   #{player.value.round(3)}"}
-when "k"
-	k.each_with_index {|player, i| puts "#{i}. #{player.name}, #{player.position}   #{player.value.round(3)}"}
+elsif positions.include? what_do
+	pos[what_do].each_with_index {|player, i| puts "#{(i+1).to_s.ljust(2," ")} #{player.name.ljust(20," ")} #{player.position.upcase.ljust(2," ")}#{player.value.round(2).to_s.rjust(8," ")}"}
 else
-	puts "Try again"
+	puts "Please enter either a position or a number from which to list players at all positions."
 end
 what_do = gets.chomp
 
